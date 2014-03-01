@@ -1,0 +1,18 @@
+<div class="right"><h1>my data</h1></div>
+<div class="clr"></div>
+<hr />
+
+
+<% @data.each do |datum| %>
+<div class="download">
+	<% @document = Document.find(datum.document_id) %>
+	<div class="download_title"><%= @document.source_file_name %></div>
+	<br />
+	<a href="<%= datum.url %><%= datum.filename %>"><%= datum.filename %></a> 
+    <%= link_to 'remove', datum, method: :delete, data: { confirm: 'Are you sure?' } %>
+	<br />
+	<div class="dldate">"<%= datum.updated_at %></div>
+</div>
+<% end %>
+
+<%#= link_to 'New Datum', new_datum_path %>

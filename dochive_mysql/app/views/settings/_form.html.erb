@@ -1,0 +1,86 @@
+<%= form_for(@setting) do |f| %>
+  <% if @setting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+
+      <ul>
+      <% @setting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="left">
+  <div class="setfile h3">
+  	<div class="wx">
+  	  <strong>Trim Top:</strong>
+      </div>
+  	<div class="wy">
+  	  <%= f.number_field :trimTop %>
+  	  <br />
+  	  <br />
+      </div>
+  	<div class="wx">
+  	  <strong>Trim Right:</strong>
+    </div>
+  	<div class="wy">
+  	  <%= f.number_field :trimRight %>
+  	  <br />
+  	  <br />
+      </div>
+  	<div class="wx">
+  	  <strong>Trim Bottom:</strong>
+    </div>
+  	<div class="wy">
+  	  <%= f.number_field :trimBottom %>
+  	  <br />
+  	  <br />
+      </div>
+  	<div class="wx">
+  	  <strong>Trim Left:</strong>
+    </div>
+  	<div class="wy">
+  	  <%= f.number_field :trimLeft %>
+    </div>
+  </div>
+  <div class="setfile h3">
+  	<div class="wx">
+  	  <strong>Default Notification:</strong>
+	  <%= f.number_field :default_notification %>
+  	  <br />
+  	  <br />
+    </div>
+  	<div class="wx">
+  	   <strong>Notify On Completion:</strong>
+    </div>
+  	<div class="wy">
+	  <%= f.number_field :notify_complete, :width => 5 %>
+    </div>
+  </div>
+  <div class="setfile h3">
+  	<div class="wx">
+  	   <strong>Default Template:</strong>
+    </div>
+  	<div class="wx">
+	  <%= collection_select(:template_id, 0, ::Template.all, :id, :name) %>
+  	  <br />
+  	  <br />
+    </div>
+  	<div class="wx">
+  	   <strong>Default Language:</strong>
+    </div>
+  	<div class="wx">
+	  <%= f.number_field :default_language %>
+	  <%= collection_select(:setting_default_language, 0, Language.all, :id, :full) %>
+    </div>
+  </div>
+  </div>
+
+  <div class="clr"></div>
+
+  <br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

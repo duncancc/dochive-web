@@ -1,0 +1,52 @@
+<div class="right"><h1><%#= current_user.email[/[^@]+/] %>my documents</h1></div>
+<br>
+<%= link_to 'add document', new_document_path, :class=>'likeabutton' %>
+<div class="clr"></div>
+<hr />
+
+<script type='text/javascript'>
+$(function(){ $('#spinner').hide(); })
+function show()
+{
+$('#spinner').show();
+$('#spinner').hide();
+$('#spinner').show();
+}
+</script>
+  
+<% @documents.each do |document| %>
+
+<div class="sysfile">
+
+  <div class="xleft">
+	  <%= link_to( image_tag("#{document.source.url}".split("?")[0].gsub("/original/","/original/thumb/").gsub(".pdf","-0000_th.png"), border: 1), document.source.url) %>
+  </div>
+  <div class="xleft">
+	<div class="pgv"><%= link_to 'pages', "/documents/#{document.id}/pages", :class=>'likeabutton block' %></div>
+  	<div class="pgv"><%= link_to 'templates', "/documents/#{document.id}/templates", :class=>'likeabutton block' %></div>
+  	<div class="pgv"><%= link_to 'convert', "/documents/#{document.id}/convert", :class=>'likeabutton block', :onclick => "return show();" %></div>
+  	<div class="pgv"><%= link_to 'delete', document, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  </div>
+  <br />
+  
+  <br />
+  <div class="xleft"> 
+	<div class="rlinks">
+	<% fileln = "" %>	
+	<% fileln = File.basename("#{document.source.url}".split("?")[0]).length %>	
+	<% if fileln < 32 then %>
+		<%= link_to File.basename("#{document.source.url}".split("?")[0]), document.source.url %></div>
+	<% else %>
+		<%= link_to File.basename("#{document.source.url}".split("?")[0])[0..18]+" ~.pdf", document.source.url %></div>
+	<% end %>
+	<div class="rlinks"><%= document.updated_at %></div>
+  </div>
+  
+</div>
+
+<% end %>
+
+<div class="clr"></div>
+
+<div id='spinner'class="large progress"><div>Loading…</div></div>
+

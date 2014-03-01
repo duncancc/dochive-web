@@ -1,0 +1,42 @@
+<%= form_for(@page) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    Skip<br>
+    <%= f.check_box :exclude %>
+  </div>
+  <div class="field">
+    <%= f.label :template_id %><br>
+    <%= f.number_field :template_id %>
+	<%#= collection_select(Page, @page.template_id, ::Template.all, :id, :name, {:include_blank => 'select a template'}, {:selected => @page.template_id}) %>
+  </div>
+  <div class="field">
+    <%= f.label :top %><br>
+    <%= f.number_field :top %>
+  </div>
+  <div class="field">
+    <%= f.label :bottom %><br>
+    <%= f.number_field :bottom %>
+  </div>
+  <div class="field">
+    <%= f.label :left %><br>
+    <%= f.number_field :left %>
+  </div>
+  <div class="field">
+    <%= f.label :right %><br>
+    <%= f.number_field :right %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

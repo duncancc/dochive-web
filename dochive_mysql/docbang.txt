@@ -1,0 +1,164 @@
+
+===============================================================================
+=== Build Your Own Hive - Or Rebuild After Accidental Delete
+===============================================================================
+
+install
+
+(1) homebrew (if mac)
+(2) mysql
+(3) posgresql
+(4) imagemagick
+	m: brew install imagemagick
+	w: ->binary release
+(5) tesseract
+	m: brew install tesseract
+	w: ->installer
+(6) ghostscript
+	m: brew install gs
+	w: ->installer
+(7) phpmyadmin	
+    m: brew tap homebrew/dupes
+	   brew tap josegonzalez/homebrew-php
+	   brew install phpmyadmin
+
+===============================================================================
+
+#rails new dochive_mysql
+rails new dochive_mysql -d mysql
+#rails new dochive_mysql -d postgresql
+cd dochive_mysql
+
+=====> 1. update gem file 
+
+  ~~ example excerpt from Gemfile
+
+gem 'paperclip', '~> 3.5.0'
+gem 'devise'
+gem 'rmagick'
+
+  ~~ example excerpt from Gemfile
+
+=====> 2. Update config/database.yml
+=====> 3. create dochive_mysql_development in mysql via phpmyadmin
+
+===============================================================================
+
+bundle install
+rails g controller Hive index overview
+
+rails g devise:install
+rails g devise user
+rails g devise:views
+bundle exec rake db:migrate RAILS_ENV=development
+
+rails g scaffold Document user_id:integer description:string 
+rails g paperclip document source
+rails g scaffold Page document_id:integer user_id:integer template_id:integer number:integer dpi:integer height:integer width:integer top:integer bottom:integer left:integer right:integer path:string url:string filename:string exclude:boolean public:boolean 
+
+rails g scaffold Style name:string
+rails g scaffold Type name:string
+rails g scaffold Group user_id:integer name:string description:string public:boolean
+
+rails g scaffold Template user_id:integer group_id:integer style_id:integer type_id:integer name:string description:string path:string url:string filename:string
+rails g scaffold Section template_id:integer name:string yOrigin:integer xOrigin:integer width:integer height:integer
+rails g scaffold Asset page_id:integer section_id:integer path:string url:string filename:string tpath:string turl:string tfilename:string language:string value:string
+rails g scaffold Data document_id:integer template_id:integer page_id:integer path:string url:string filename:string description:string public:boolean
+
+rails g scaffold Setting user_id:integer default_template:integer default_language:integer default_notification:string notify_complete:boolean trimLeft:integer trimRight:integer trimTop:integer trimBottom:integer
+rails g scaffold Language full:string short:string enabled:boolean
+
+bundle exec rake db:migrate RAILS_ENV=development
+bundle exec rake db:seed
+
+=====> Setup Models
+=====> layout
+=====> css
+=====> seed
+
+===============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===============================================================================
+MacBook-Air:dochive_mysql Thuncan$ rails g devise:install
+      create  config/initializers/devise.rb
+      create  config/locales/devise.en.yml
+===============================================================================
+
+Some setup you must do manually if you haven't yet:
+
+  1. Ensure you have defined default url options in your environments files. Here 
+     is an example of default_url_options appropriate for a development environment 
+     in config/environments/development.rb:
+
+       config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+     In production, :host should be set to the actual host of your application.
+
+  2. Ensure you have defined root_url to *something* in your config/routes.rb.
+     For example:
+
+       root :to => "home#index"
+
+  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
+     For example:
+
+       <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p>
+
+  4. If you are deploying on Heroku with Rails 3.2 only, you may want to set:
+
+       config.assets.initialize_on_precompile = false
+
+     On config/application.rb forcing your application to not access the DB
+     or load models when precompiling your assets.
+
+  5. You can copy Devise views (for customization) to your app by running:
+
+       rails g devise:views
+
+===============================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

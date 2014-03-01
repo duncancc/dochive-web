@@ -1,0 +1,47 @@
+<div class="right"><h1><%= @document.source_file_name %></h1></div>
+<br>
+<%= link_to 'return to documents', documents_path, :class=>'likeabutton' %>
+<div class="clr"></div>
+<hr />
+
+  <script type='text/javascript'>
+  //$(function(){ $('#spinner').hide(); })
+  //function show()
+  //{
+  //$('#spinner').show();
+  //$('#spinner').hide();
+  //$('#spinner').show();
+  //}
+  </script>
+  
+
+<% @pages.each do |p| %>
+<%#= form_tag('/documents/#{p.id}/toggle', remote: true) %>
+
+<div class="medfile">
+
+  <a href='/pages/<%=p.id%>'>
+    
+    <% var = p.path.gsub("/original/img5/","/original/medium/")+"#{p.filename}".gsub(".png","_mdx.png") %>
+  	<% if File.exists?(var) then %>
+		<%= link_to( image_tag("#{p.url}".gsub("/original/img5/","/original/medium/")+"#{p.filename}".gsub(".png","_mdx.png"), :width => 277, :height=>369), "/pages/#{p.id}")  %>
+  	<% else %>
+		<%= link_to( image_tag("#{p.url}".gsub("/original/img5/","/original/medium/")+"#{p.filename}".gsub(".png","_md.png"), :width => 277, :height=>369), "/pages/#{p.id}")  %>
+  	<% end %>
+    <br />
+	  
+	<div class="rdu">	
+		<div class="right"><p><%#= check_box_tag p.id, p.id , p.exclude %> </p></div>
+		<div class="right"><p><%#= check_box_tag p.id, p.id , p.exclude, :onclick => "return z();" %></p></div>
+		
+		<div class="right"><p><%#	= collection_select(:default_template, 0, ::Template.all, :id, :name) %></p></div>	
+		<div class="xleft"><p><%= p.number + 1 %></p></div>
+	</div>
+  </a>
+  
+</div>
+
+<% end %>
+
+
+<div class="clr"></div>

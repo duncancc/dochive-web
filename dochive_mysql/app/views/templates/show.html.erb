@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @template.user_id %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @template.group_id %>
+</p>
+
+<p>
+  <strong>Style:</strong>
+  <%= @template.style_id %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @template.type_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @template.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @template.description %>
+</p>
+
+<p>
+  <strong>Path:</strong>
+  <%= @template.path %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @template.url %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @template.filename %>
+</p>
+
+<%= link_to 'Edit', edit_template_path(@template) %> |
+<%= link_to 'Back', templates_path %>
